@@ -35,7 +35,7 @@ TOKEN = environ.get("TOKEN")
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('Wordle score bot started!')
 
 
 def help(update, context):
@@ -84,3 +84,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
