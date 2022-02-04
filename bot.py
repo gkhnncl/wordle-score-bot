@@ -16,6 +16,7 @@ bot.
 """
 
 import logging
+import pathlib
 import re
 
 from dotenv import load_dotenv
@@ -53,8 +54,10 @@ def error(update, context):
 def echo(update, context):
     """Echo the user message."""
     score = get_wordle_score(update.message.text)
+    user = update.message.from_user["username"]
     if score is not None:
         update.message.reply_text(score)
+        log_score_csv(score, user)
 
 
 def get_wordle_score(text):
@@ -64,6 +67,24 @@ def get_wordle_score(text):
         score = score.group()
 
     return score
+
+
+def log_score_csv(score, user, fpath="scores.csv"):
+    """Log score in a local csv file."""
+    fpath = pathlib.Path(fpath)
+
+    # Create score file if not yet existing
+    if not fpath.exists():
+        with open(fpath, "w") as file:
+            file.write("username,wordle,score\n")
+
+    with open(fpath, "a") as file:
+        log = f"{user},{score.split()[1]},{score.split()[2]}\n"
+        file.write(log)
+
+    # TODO: score validation / repeated posts
+
+    return None
 
 
 def main():
