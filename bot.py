@@ -35,12 +35,11 @@ def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
-def echo(update, context):
-    """Echo the user message."""
+def score_listener(update, context):
+    """Parse and log scores from messages."""
     score = get_wordle_score(update.message.text)
     user = update.message.from_user["username"]
     if score is not None:
-        update.message.reply_text(score)
         log_score_csv(score, user)
 
 
@@ -82,8 +81,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
 
-    # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
+    dp.add_handler(MessageHandler(Filters.text, score_listener))
 
     # log all errors
     dp.add_error_handler(error)
