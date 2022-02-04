@@ -10,8 +10,9 @@ from os import environ
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 logger = logging.getLogger(__name__)
 
@@ -22,12 +23,12 @@ TOKEN = environ.get("TOKEN")
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Wordle score bot started!')
+    update.message.reply_text("Wordle score bot started!")
 
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text("Help!")
 
 
 def error(update, context):
@@ -92,5 +93,5 @@ def main():
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
