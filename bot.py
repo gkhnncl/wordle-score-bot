@@ -17,6 +17,8 @@ bot.
 
 import logging
 
+from dotenv import load_dotenv
+from os import environ
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 # Enable logging
@@ -25,6 +27,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+# Load token
+load_dotenv()
+TOKEN = environ.get("TOKEN")
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
