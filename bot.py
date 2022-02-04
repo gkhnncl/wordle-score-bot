@@ -46,8 +46,9 @@ def help(update, context):
 
 def echo(update, context):
     """Echo the user message."""
-    if is_wordle_score(update.message.text):
-        update.message.reply_text(update.message.text)
+    score = get_wordle_score(update.message.text)
+    if score is not None:
+        update.message.reply_text(score)
 
 
 def error(update, context):
@@ -55,9 +56,13 @@ def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
-def is_wordle_score(text):
-    """Return True if message is a Wordle score."""
-    return bool(re.match(r"Wordle [0-9]+ [0-6]\/[0-6]", text))
+def get_wordle_score(text):
+    """Return the header if text is a Wordle score."""
+    score = re.match(r"Wordle [0-9]+ [0-6]\/[0-6]", text)
+    if score is not None:
+        score = score.group()
+
+    return score
 
 
 def main():
