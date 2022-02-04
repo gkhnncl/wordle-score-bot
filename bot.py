@@ -6,6 +6,7 @@ import pathlib
 import re
 
 from dotenv import load_dotenv
+from gsheet import SHEET_URL, log_scores_gsheet
 from os import environ
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -42,6 +43,11 @@ def score_listener(update, context):
     user = update.message.from_user["username"]
     if score is not None:
         log_score_csv(score, user)
+
+        if SHEET_URL is not None:
+            log_scores_gsheet(score, user)
+
+    return None
 
 
 def get_wordle_score(text):
