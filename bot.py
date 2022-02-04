@@ -16,6 +16,7 @@ bot.
 """
 
 import logging
+import re
 
 from dotenv import load_dotenv
 from os import environ
@@ -45,12 +46,18 @@ def help(update, context):
 
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+    if is_wordle_score(update.message.text):
+        update.message.reply_text(update.message.text)
 
 
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+
+def is_wordle_score(text):
+    """Return True if message is a Wordle score."""
+    return bool(re.match(r"Wordle [0-9]+ [0-6]\/[0-6]", text))
 
 
 def main():
@@ -84,4 +91,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
