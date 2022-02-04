@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 TOKEN = environ.get("TOKEN")
 
+
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -44,16 +45,16 @@ def help(update, context):
     update.message.reply_text('Help!')
 
 
+def error(update, context):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+
 def echo(update, context):
     """Echo the user message."""
     score = get_wordle_score(update.message.text)
     if score is not None:
         update.message.reply_text(score)
-
-
-def error(update, context):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
 def get_wordle_score(text):
