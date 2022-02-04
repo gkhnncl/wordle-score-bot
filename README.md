@@ -1,7 +1,14 @@
 # wordle-score-bot
 Telegram bot for tracking scores in group chats playing Wordle
 
-## Google Sheets integration
+## Installation
+
+1. Create your bot via [BotFather](https://core.telegram.org/bots#6-botfather).
+2. Clone this repo.
+3. Install `requirements.txt`.
+4. Run `python bot.py`.
+
+## Google Sheets integration (optional)
 
 1. Install `gspread`.
 2. Create an OAuth client for authentication and save it as `credentials.json` in the folder. See [this](https://docs.gspread.org/en/latest/oauth2.html#for-end-users-using-oauth-client-id) for more information.
