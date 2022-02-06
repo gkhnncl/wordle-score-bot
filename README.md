@@ -9,7 +9,16 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
 
 1. Clone this repo and install `requirements.txt`.
 2. Create your bot via the [BotFather](https://core.telegram.org/bots#6-botfather).
-3. Set privacy settings to allow reading messages from group chats. (Detailed screenshots to be added soon.)
+
+    ![image](https://user-images.githubusercontent.com/13794421/152684527-775f284f-923f-4555-93d9-4cbc1a617fec.png)
+    
+3. Turn off group privacy to allow reading messages from group chats.
+
+   1. Enter `/mybots` and select your bot.
+   2. Go to `Bot Settings` > `Group Privacy`. Select `Turn off`.
+
+   ![image](https://user-images.githubusercontent.com/13794421/152685053-5a14ccf5-1320-470c-b8a3-354d21732854.png)
+
 4. Set the `TOKEN` variable to your bot's access token in the `.env` file.
 5. Run `python bot.py`.
 
