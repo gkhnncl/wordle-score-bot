@@ -1,7 +1,11 @@
 # wordle-score-bot
 Telegram bot for tracking scores in group chats playing Wordle
 
-## Installation
+![demo](https://user-images.githubusercontent.com/13794421/152672850-daf0866d-312b-4f78-8238-68e9241a0ded.gif)
+
+Add the bot to your Wordle group chat to log everyone's scores in a local CSV file or Google Sheets.
+
+## Usage guide
 
 1. Create your bot via the [BotFather](https://core.telegram.org/bots#6-botfather).
 2. Set privacy settings to allow reading messages from group chats. (Detailed screenshots to be added soon.)
@@ -20,3 +24,4 @@ Telegram bot for tracking scores in group chats playing Wordle
 - [ ] Score validation for repeated posts
 - [ ] Daily summary messages
 - [ ] Weekly/monthly leaderboard
+
