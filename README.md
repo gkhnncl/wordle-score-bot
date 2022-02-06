@@ -25,8 +25,9 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
 ## Google Sheets integration (optional)
 
 1. Install `gspread`.
-2. Create an OAuth client for authentication and save it as `credentials.json` in the folder. See [this](https://docs.gspread.org/en/latest/oauth2.html#for-end-users-using-oauth-client-id) for more information.
-3. Create your Google Sheet and add `SHEET_URL=https://docs.google.com/spreadsheets/d/...'` to the `.env` file.
+2. Create a service account for authentication and save it as `service_account.json` in the root folder. See [this](https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account) for more information.
+3. Create your Google Sheet and share it with the `client_email` of the service account.
+4. Add `SHEET_URL=https://docs.google.com/spreadsheets/d/...'` to the `.env` file.
 
 ## TODO list
 

@@ -154,4 +154,4 @@ cython_debug/
 # wordle-score-bot
 .env
 scores.csv
-credentials.json
+service_account.json
