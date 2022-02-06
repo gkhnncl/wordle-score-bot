@@ -8,6 +8,13 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
 ## Usage guide
 
 1. Clone this repo and install `requirements.txt`.
+
+    ``` sh
+    $ git clone git@github.com:ajdajd/wordle-score-bot.git
+    $ cd wordle-score-bot
+    $ pip install -r requirements.txt
+    ```
+
 2. Create your bot via the [BotFather](https://core.telegram.org/bots#6-botfather).
 
     ![image](https://user-images.githubusercontent.com/13794421/152684527-775f284f-923f-4555-93d9-4cbc1a617fec.png)
@@ -20,7 +27,13 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
    ![image](https://user-images.githubusercontent.com/13794421/152685053-5a14ccf5-1320-470c-b8a3-354d21732854.png)
 
 4. Set the `TOKEN` variable to your bot's access token in the `.env` file.
-5. Run `python bot.py`.
+5. Run `bot.py`.
+
+    ``` sh
+    $ python bot.py
+    ```
+
+Messages received containing `Wordle XXX Y/6` will be logged into `scores.csv`. It will be created automatically if not yet existing.
 
 ## Google Sheets integration (optional)
 
