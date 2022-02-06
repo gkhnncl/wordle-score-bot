@@ -65,7 +65,7 @@ def score_listener(update, context):
 
 def get_wordle_header(text):
     """Return the header if text is a Wordle score."""
-    header = re.match(r"Wordle [0-9]+ [0-6]\/[0-6]", text)
+    header = re.match(r"Wordle [0-9]+ [0-6X]\/[0-6]", text)
     if header is not None:
         header = header.group()
 
