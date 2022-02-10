@@ -7,8 +7,10 @@ SHEET_URL = environ.get("SHEET_URL")
 if SHEET_URL is not None:
     try:
         import gspread
-    except ImportError:
-        print("Missing dependencies. Install gspread for Google Sheets integration.")
+    except ModuleNotFoundError:
+        raise ModuleNotFoundError(
+            "Missing dependencies. Install gspread for Google Sheets integration."
+        )
 
 
 def log_scores_gsheet(score):
