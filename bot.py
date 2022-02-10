@@ -40,11 +40,15 @@ def error(update, context):
 
 
 class WordleScore:
-    def __init__(self, date, user, edition, score):
+    def __init__(self, date, from_user, edition, score):
         self.date = date
-        self.user = user
         self.edition = edition
         self.score = score
+        # Use first_name + last_name for users without a username
+        self.user = (
+            from_user["username"]
+            or f"{from_user['first_name'] or ''} {from_user['last_name'] or ''}"
+        )
 
 
 def score_listener(update, context):
@@ -53,7 +57,7 @@ def score_listener(update, context):
     if header is not None:
         score = WordleScore(
             date=update.message.date.strftime("%x %X %Z%z"),
-            user=update.message.from_user["username"],
+            from_user=update.message.from_user,
             edition=header.split()[1],
             score=header.split()[2],
         )
