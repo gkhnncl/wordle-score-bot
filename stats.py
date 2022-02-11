@@ -70,6 +70,44 @@ def get_total_points(df):
     return lb
 
 
-# def get_recap():
-#     """Get last two editions' leaderboards."""
-#     df = get_scores_df()
+def get_top_n_users(df, n=5):
+    """Return the top n users from the scores.
+
+    If there are ties at the nth position, users with the same score as the nth user
+    will be included.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe of Wordle scores
+    n : int, default 5
+        Number of positions to include
+
+    Returns
+    -------
+    pandas.DataFrame
+    """
+    top_df = get_total_points(df).sort_values("points", ascending=False)
+
+    # Handle ties
+    if len(top_df) > n:
+        p_bound = top_df["points"].iloc[n - 1]
+        top_df = top_df[top_df["points"] >= p_bound]
+
+    return top_df
+
+
+def get_recap():
+    """Get leaderboards of the last two editions.
+
+    Returns
+    -------
+    tuple of pandas.DataFrame
+    """
+    df = get_scores_df()
+
+    ed = df["wordle"].max()
+    r1 = get_top_n_users(df[df["wordle"] == ed].copy())
+    r2 = get_top_n_users(df[df["wordle"] == ed - 1].copy())
+
+    return r1, r2
