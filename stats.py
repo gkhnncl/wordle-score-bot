@@ -102,12 +102,15 @@ def get_recap():
 
     Returns
     -------
-    tuple of pandas.DataFrame
+    tuple of (int, pandas.DataFrame, int, pandas.DataFrame)
+        Corresponds to latest edition, latest leaderboard, (latest-1) edition,
+        (latest-1) leaderboard
     """
     df = get_scores_df()
 
     ed = df["wordle"].max()
-    r1 = get_top_n_users(df[df["wordle"] == ed].copy())
-    r2 = get_top_n_users(df[df["wordle"] == ed - 1].copy())
+    ed2 = ed - 1
+    t1 = get_top_n_users(df[df["wordle"] == ed].copy())
+    t2 = get_top_n_users(df[df["wordle"] == ed2].copy())
 
-    return r1, r2
+    return ed, t1, ed2, t2
