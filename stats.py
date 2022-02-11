@@ -66,8 +66,8 @@ def get_total_points(df):
     pandas.DataFrame
     """
     df["points"] = df["score"].apply(lambda x: calculate_points(x))
-    lb = df.groupby("username").agg(points=("points", "sum"))
-    return lb
+    agg = df.groupby("username").agg(points=("points", "sum"))
+    return agg
 
 
 def get_top_n_users(df, n=5):
