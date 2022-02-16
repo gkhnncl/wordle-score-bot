@@ -43,7 +43,7 @@ def calculate_points(x):
 
     Returns
     -------
-    int
+    int or float
     """
     try:
         p = abs(int(x[0]) - 6) + 1
@@ -51,6 +51,30 @@ def calculate_points(x):
         p = 0.5
 
     return p
+
+
+def convert_points_to_wordle_score(p):
+    """Return Wordle score equivalent of points.
+
+    If the given points is not within 1 through 6 or 0.5, None is returned.
+
+    Parameters
+    ----------
+    p : int or float
+        Points to be converted to Wordle score
+
+    Returns
+    -------
+    str or None
+        Wordle score (e.g., "4/6")
+    """
+    x = None
+    if p in range(1, 7):
+        x = f"{str(abs(p - 6) + 1)}/6"
+    elif p == 0.5:
+        x = "X/6"
+
+    return x
 
 
 def get_total_points(df):
@@ -97,6 +121,23 @@ def get_top_n_users(df, n=5):
     return top_df
 
 
+def _get_recap_df(df):
+    """Get top users and return Wordle scores.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe of Wordle scores of a Wordle edition
+
+    Returns
+    -------
+    pandas.DataFrame
+    """
+    df = get_top_n_users(df)
+    df["score"] = df["points"].apply(lambda x: convert_points_to_wordle_score(x))
+    return df[["score"]]
+
+
 def get_recap():
     """Get leaderboards of the last two editions.
 
@@ -108,9 +149,9 @@ def get_recap():
     """
     df = get_scores_df()
 
-    ed = df["wordle"].max()
-    ed2 = ed - 1
-    t1 = get_top_n_users(df[df["wordle"] == ed].copy())
-    t2 = get_top_n_users(df[df["wordle"] == ed2].copy())
+    ed2 = df["wordle"].max()
+    ed1 = ed2 - 1
+    r1 = _get_recap_df(df[df["wordle"] == ed1].copy())
+    r2 = _get_recap_df(df[df["wordle"] == ed2].copy())
 
-    return ed, t1, ed2, t2
+    return ed2, r2, ed1, r1

@@ -6,9 +6,12 @@ import pathlib
 import re
 
 from dotenv import load_dotenv
-from gsheet import SHEET_URL, log_scores_gsheet
 from os import environ
+from tabulate import tabulate
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+from gsheet import SHEET_URL, log_scores_gsheet
+from stats import get_recap
 
 # Enable logging
 logging.basicConfig(
@@ -94,6 +97,39 @@ def log_score_csv(score, fpath="scores.csv"):
     return None
 
 
+def convert_df_to_str(df, **kwargs):
+    """Return dataframe as human-readable plain text.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+
+    **kwargs
+        These parameters will be passed to `tabulate`
+
+    Returns
+    -------
+    str
+    """
+    return tabulate(df, headers="keys", tablefmt="simple", **kwargs)
+
+
+def recap(update, context):
+    """Send the last two editions' leaderboards."""
+    ed2, r2, ed1, r1 = get_recap()
+
+    msg = (
+        f"**Recap for Wordle {ed1}**\n"
+        f"```{convert_df_to_str(r1, colalign=('left','center'))}```\n\n"
+        f"**Recap for Wordle {ed2}**\n"
+        f"```{convert_df_to_str(r2, colalign=('left','center'))}```"
+    )
+
+    update.message.reply_text(msg)
+
+    return None
+
+
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
@@ -104,6 +140,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("recap", recap))
 
     dp.add_handler(MessageHandler(Filters.text, score_listener))
 
