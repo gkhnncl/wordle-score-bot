@@ -119,9 +119,9 @@ def recap(update, context):
     ed2, r2, ed1, r1 = get_recap()
 
     msg = (
-        f"**Recap for Wordle {ed1}**\n"
+        f"**Leaderboard for Wordle {ed1}**\n"
         f"```\n{convert_df_to_str(r1, colalign=('left','center'))}```\n\n"
-        f"**Recap for Wordle {ed2}**\n"
+        f"**Leaderboard for Wordle {ed2}**\n"
         f"```\n{convert_df_to_str(r2, colalign=('left','center'))}```"
     )
 
