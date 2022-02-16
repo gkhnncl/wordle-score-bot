@@ -120,12 +120,12 @@ def recap(update, context):
 
     msg = (
         f"**Recap for Wordle {ed1}**\n"
-        f"```{convert_df_to_str(r1, colalign=('left','center'))}```\n\n"
+        f"```\n{convert_df_to_str(r1, colalign=('left','center'))}```\n\n"
         f"**Recap for Wordle {ed2}**\n"
-        f"```{convert_df_to_str(r2, colalign=('left','center'))}```"
+        f"```\n{convert_df_to_str(r2, colalign=('left','center'))}```"
     )
 
-    update.message.reply_text(msg)
+    update.message.reply_text(msg, parse_mode="MarkdownV2")
 
     return None
 
