@@ -5,6 +5,12 @@ Telegram bot for tracking scores in group chats playing Wordle
 
 Add the bot to your Wordle group chat to log everyone's scores in a local CSV file or Google Sheets.
 
+## Features
+
+- `/recap` - Get the leaderboards of the last two editions.
+- Google Sheets integration (optional)
+- TODO: Weekly and monthly leaderboards
+
 ## Usage guide
 
 1. Clone this repo and install `requirements.txt`.
@@ -41,10 +47,3 @@ Messages received containing `Wordle XXX Y/6` will be logged into `scores.csv`. 
 2. Create a service account for authentication and save it as `service_account.json` in the root folder. See [this](https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account) for more information.
 3. Create your Google Sheet and share it with the `client_email` of the service account.
 4. Add `SHEET_URL=https://docs.google.com/spreadsheets/d/...'` to the `.env` file.
-
-## TODO list
-
-- [ ] Score validation for repeated posts
-- [ ] Daily summary messages
-- [ ] Weekly/monthly leaderboard
-
