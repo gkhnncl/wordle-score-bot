@@ -5,7 +5,7 @@ Telegram bot for tracking scores in group chats playing Wordle
 
 Add the bot to your Wordle group chat to log everyone's scores in a local CSV file or Google Sheets.
 
-## Features
+## Features and commands
 
 - `/recap` - Get the leaderboards of the last two Wordle editions.
 - `/weekly` - Get the leaderboard of the past week (starting from yesterday).
@@ -39,6 +39,14 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
     ``` sh
     $ python bot.py
     ```
+
+    or 
+
+    ``` sh
+    $ nohup python -u /home/ubuntu/wordle-score-bot/bot.py &
+    ```
+    
+    to keep it running in the background.
 
 Messages received containing `Wordle XXX Y/6` will be logged into `scores.csv`. It will be created automatically if not yet existing.
 
