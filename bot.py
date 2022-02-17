@@ -138,7 +138,7 @@ def weekly(update, context):
     ed1, ed2, lb = get_weekly()
 
     msg = (
-        f"**Weekly leaderboard \(Wordle {ed1}\-{ed2}\)**\n"
+        f"**Weekly leaderboard \(Wordle {ed1}\-{ed2}\)**\n"  # noqa: W605
         f"```\n{convert_df_to_str(lb, colalign=('left','center'))}```"
     )
 
