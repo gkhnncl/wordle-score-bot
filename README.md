@@ -8,7 +8,7 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
 ## Features and commands
 
 - `/recap` - Get the leaderboards of the last two Wordle editions.
-- `/weekly` - Get the leaderboard of the past week (starting from yesterday).
+- `/weekly` - Get the leaderboard of the past week.
 - Google Sheets integration (optional)
 - TODO: Monthly leaderboards
 
