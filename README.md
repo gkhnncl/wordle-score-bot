@@ -56,3 +56,9 @@ Messages received containing `Wordle XXX Y/6` will be logged into `scores.csv`. 
 2. Create a service account for authentication and save it as `service_account.json` in the root folder. See [this](https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account) for more information.
 3. Create your Google Sheet and share it with the `client_email` of the service account.
 4. Add `SHEET_URL=https://docs.google.com/spreadsheets/d/...'` to the `.env` file.
+
+## Weekly leaderboard scheduled message (optional)
+
+1. Obtain the chat ID of your group. See [this SO thread](https://stackoverflow.com/questions/32423837/telegram-bot-how-to-get-a-group-chat-id) for more information.
+2. Add `CHAT_ID=-XXXXXXXXX` to the `.env` file.
+3. Edit `constants.py` to change time and day of message. The default setting is every Friday at 04:00 (UTC).
