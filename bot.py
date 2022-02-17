@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import datetime
 import logging
 import pathlib
 import re
 
+
 from dotenv import load_dotenv
 from os import environ
 from tabulate import tabulate
+from telegram import Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+from constants import DAYS, TIME
 from gsheet import SHEET_URL, log_scores_gsheet
 from stats import get_recap, get_weekly
 
@@ -20,9 +23,9 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# Load token
 load_dotenv()
 TOKEN = environ.get("TOKEN")
+CHAT_ID = environ.get("CHAT_ID")
 
 
 def error(update, context):
@@ -120,10 +123,12 @@ def recap(update, context):
     return None
 
 
-def weekly(update, context):
-    """Send the past week's leaderboard.
+def compose_weekly_message():
+    """Return past week's leaderboard message string.
 
-    Included editions start from yesterday and 6 days prior.
+    Returns
+    -------
+    str
     """
     ed1, ed2, lb = get_weekly()
 
@@ -131,9 +136,27 @@ def weekly(update, context):
         f"**Weekly leaderboard \(Wordle {ed1}\-{ed2}\)**\n"  # noqa: W605
         f"```\n{convert_df_to_str(lb, colalign=('left','center'))}```"
     )
+    return msg
 
+
+def weekly(update, context):
+    """Send the past week's leaderboard.
+
+    Included editions start from yesterday and 6 days prior.
+    """
+    msg = compose_weekly_message()
     update.message.reply_text(msg, parse_mode="MarkdownV2")
 
+    return None
+
+
+def send_weekly_message(context):
+    """Send the past week's leaderboard.
+
+    Included editions start from yesterday and 6 days prior.
+    """
+    msg = compose_weekly_message()
+    Bot(token=TOKEN).sendMessage(chat_id=CHAT_ID, text=msg, parse_mode="MarkdownV2")
     return None
 
 
@@ -145,12 +168,17 @@ def main():
     dp.add_handler(CommandHandler("recap", recap))
     dp.add_handler(CommandHandler("weekly", weekly))
     dp.add_handler(MessageHandler(Filters.text, score_listener))
-
     dp.add_error_handler(error)
 
-    updater.start_polling()
+    # Scheduled messages
+    if CHAT_ID is not None:
+        j = updater.job_queue
+        j.run_daily(send_weekly_message, days=DAYS, time=TIME)
 
+    updater.start_polling()
     updater.idle()
+
+    return None
 
 
 if __name__ == "__main__":
