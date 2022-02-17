@@ -177,6 +177,8 @@ def resolve_weekly_edition():
 def get_weekly():
     """Get leaderboard of the past week.
 
+    Included editions start from yesterday and 6 days prior.
+
     Returns
     -------
     tuple of (int, int, pandas.DataFrame)

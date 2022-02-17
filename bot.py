@@ -11,7 +11,7 @@ from tabulate import tabulate
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from gsheet import SHEET_URL, log_scores_gsheet
-from stats import get_recap
+from stats import get_recap, get_weekly
 
 # Enable logging
 logging.basicConfig(
@@ -130,6 +130,23 @@ def recap(update, context):
     return None
 
 
+def weekly(update, context):
+    """Send the past week's leaderboard.
+
+    Included editions start from yesterday and 6 days prior.
+    """
+    ed1, ed2, lb = get_weekly()
+
+    msg = (
+        f"**Weekly leaderboard \(Wordle {ed1}\-{ed2}\)**\n"
+        f"```\n{convert_df_to_str(lb, colalign=('left','center'))}```"
+    )
+
+    update.message.reply_text(msg, parse_mode="MarkdownV2")
+
+    return None
+
+
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
@@ -141,6 +158,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("recap", recap))
+    dp.add_handler(CommandHandler("weekly", weekly))
 
     dp.add_handler(MessageHandler(Filters.text, score_listener))
 
