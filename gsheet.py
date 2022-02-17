@@ -14,7 +14,12 @@ if SHEET_URL:
 
 
 def log_scores_gsheet(score):
-    """Log score on Google Sheets."""
+    """Log score on Google Sheets.
+
+    Parameters
+    ----------
+    score : WordleScore
+    """
     gc = gspread.service_account(filename="service_account.json")
     sh = gc.open_by_url(SHEET_URL)
     sh.sheet1.append_row([score.date, score.user, score.edition, score.score])

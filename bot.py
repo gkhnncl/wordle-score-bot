@@ -4,7 +4,6 @@ import logging
 import pathlib
 import re
 
-
 from dotenv import load_dotenv
 from os import environ
 from tabulate import tabulate
@@ -33,6 +32,20 @@ def error(update, context):
 
 
 class WordleScore:
+    """Class storing a Wordle Score.
+
+    Parameters
+    ----------
+    date : str
+        Date string
+    from_user : telegram.User
+        User object
+    edition : int
+        Wordle edition
+    score : str
+        Wordle score (e.g., "4/6")
+    """
+
     def __init__(self, date, from_user, edition, score):
         self.date = date
         self.edition = edition
