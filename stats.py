@@ -13,7 +13,7 @@ def get_scores_df():
     -------
     pandas.DataFrame
     """
-    if SHEET_URL is not None:
+    if SHEET_URL:
         gc = gspread.service_account(filename="service_account.json")
         sh = gc.open_by_url(SHEET_URL)
         df = pd.DataFrame(sh.sheet1.get_all_records())

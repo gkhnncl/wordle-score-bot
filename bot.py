@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import datetime
 import logging
 import pathlib
 import re
@@ -57,7 +56,7 @@ def score_listener(update, context):
         )
         log_score_csv(score)
 
-        if SHEET_URL is not None:
+        if SHEET_URL:
             log_scores_gsheet(score)
 
     return None
@@ -171,7 +170,7 @@ def main():
     dp.add_error_handler(error)
 
     # Scheduled messages
-    if CHAT_ID is not None:
+    if CHAT_ID:
         j = updater.job_queue
         j.run_daily(send_weekly_message, days=DAYS, time=TIME)
 

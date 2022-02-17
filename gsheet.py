@@ -4,7 +4,7 @@ from os import environ
 load_dotenv()
 SHEET_URL = environ.get("SHEET_URL")
 
-if SHEET_URL is not None:
+if SHEET_URL:
     try:
         import gspread
     except ModuleNotFoundError:
