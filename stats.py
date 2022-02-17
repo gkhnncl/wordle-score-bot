@@ -1,6 +1,8 @@
+import datetime
 import gspread
 import pandas as pd
 
+from constants import BASE_ED_DATE
 from gsheet import SHEET_URL
 
 
@@ -155,3 +157,35 @@ def get_recap():
     r2 = _get_recap_df(df[df["wordle"] == ed2].copy())
 
     return ed2, r2, ed1, r1
+
+
+def resolve_weekly_edition():
+    """Return starting and ending editions for the past week.
+
+    Returns
+    -------
+    tuple of (int, int)
+        Corresponds to beginning edition, ending edition
+    """
+    yday = datetime.datetime.utcnow().date() - datetime.timedelta(days=1)
+    ed2 = BASE_ED_DATE[0] + (yday - BASE_ED_DATE[1]).days
+    ed1 = ed2 - 6
+
+    return ed1, ed2
+
+
+def get_weekly():
+    """Get leaderboard of the past week.
+
+    Returns
+    -------
+    tuple of (int, int, pandas.DataFrame)
+        Corresponds to starting edition, ending edition, leaderboard
+    """
+    ed1, ed2 = resolve_weekly_edition()
+
+    df = get_scores_df()
+    df = df[df["wordle"].between(ed1, ed2)].copy()
+    lb = get_total_points(df).sort_values("points", ascending=False)
+
+    return ed1, ed2, lb
