@@ -116,13 +116,13 @@ def convert_df_to_str(df, **kwargs):
 
 def recap(update, context):
     """Send the last two editions' leaderboards."""
-    ed2, r2, ed1, r1 = get_recap()
+    ed1, lb1, ed2, lb2 = get_recap()
 
     msg = (
         f"**Leaderboard for Wordle {ed1}**\n"
-        f"```\n{convert_df_to_str(r1, colalign=('left','center'))}```\n\n"
+        f"```\n{convert_df_to_str(lb1, colalign=('left','center'))}```\n\n"
         f"**Leaderboard for Wordle {ed2}**\n"
-        f"```\n{convert_df_to_str(r2, colalign=('left','center'))}```"
+        f"```\n{convert_df_to_str(lb2, colalign=('left','center'))}```"
     )
 
     update.message.reply_text(msg, parse_mode="MarkdownV2")

@@ -146,17 +146,17 @@ def get_recap():
     Returns
     -------
     tuple of (int, pandas.DataFrame, int, pandas.DataFrame)
-        Corresponds to latest edition, latest leaderboard, (latest-1) edition,
-        (latest-1) leaderboard
+        Corresponds to (latest-1) edition, (latest-1) leaderboard, latest edition,
+        latest leaderboard
     """
     df = get_scores_df()
 
     ed2 = df["wordle"].max()
     ed1 = ed2 - 1
-    r1 = _get_recap_df(df[df["wordle"] == ed1].copy())
-    r2 = _get_recap_df(df[df["wordle"] == ed2].copy())
+    lb1 = _get_recap_df(df[df["wordle"] == ed1].copy())
+    lb2 = _get_recap_df(df[df["wordle"] == ed2].copy())
 
-    return ed2, r2, ed1, r1
+    return ed1, lb1, ed2, lb2
 
 
 def resolve_weekly_edition():
