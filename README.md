@@ -43,7 +43,7 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
     or 
 
     ``` sh
-    $ nohup python -u /home/ubuntu/wordle-score-bot/bot.py &
+    $ nohup python -u bot.py &
     ```
     
     to keep it running in the background.
