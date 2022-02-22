@@ -151,8 +151,9 @@ def get_recap():
     """
     df = get_scores_df()
 
-    ed1 = df["wordle"].nlargest(2).values[1]
-    ed2 = df["wordle"].nlargest(2).values[0]
+    latest = df["wordle"].drop_duplicates().nlargest(2).values
+    ed1 = latest[1]
+    ed2 = latest[0]
     lb1 = _get_recap_df(df[df["wordle"] == ed1].copy())
     lb2 = _get_recap_df(df[df["wordle"] == ed2].copy())
 
