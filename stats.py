@@ -72,7 +72,7 @@ def convert_points_to_wordle_score(p):
     """
     x = None
     if p in range(1, 7):
-        x = f"{str(abs(p - 6) + 1)}/6"
+        x = f"{str(abs(int(p) - 6) + 1)}/6"
     elif p == 0.5:
         x = "X/6"
 
@@ -136,6 +136,8 @@ def _get_recap_df(df):
     pandas.DataFrame
     """
     df = get_top_n_users(df)
+    # Filter out X/6
+    df = df[df["points"] != 0.5].copy()
     df["score"] = df["points"].apply(lambda x: convert_points_to_wordle_score(x))
     return df[["score"]]
 
