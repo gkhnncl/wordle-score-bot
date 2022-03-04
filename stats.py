@@ -92,7 +92,9 @@ def get_total_points(df):
     pandas.DataFrame
     """
     df["points"] = df["score"].apply(lambda x: calculate_points(x))
-    agg = df.groupby("username").agg(points=("points", "sum"))
+    agg = df.groupby("username").agg(
+        points=("points", "sum"), count=("username", "count")
+    )
     return agg
 
 
