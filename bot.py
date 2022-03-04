@@ -146,7 +146,7 @@ def compose_weekly_message():
 
     msg = (
         f"**Weekly leaderboard \(Wordle {ed1}\-{ed2}\)**\n"  # noqa: W605
-        f"```\n{convert_df_to_str(lb, colalign=('left','center'))}```"
+        f"```\n{convert_df_to_str(lb, colalign=('left','center', 'center'))}```"
     )
     return msg
 
