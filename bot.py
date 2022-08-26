@@ -172,6 +172,36 @@ def send_weekly_message(context):
     return None
 
 
+def help(update, context):
+    """Send the past week's leaderboard.
+
+    Included editions start from yesterday and 6 days prior.
+    """
+    msg = (
+        "*How to play*"
+        "\nAdd this bot to your group chat and send your Wordle scores\. Messages "
+        "receved containing Wordle XXX Y/6 will be logged\."
+        "\n\n*Commands*"
+        "\n`/recap` \- Get the leaderboards of the last two Wordle editions\."
+        "\n`/weekly` \- Get the leaderboard of the past week\."
+        "\n\n*Scoring*"
+        "\nThe following table shows how much points a Wordle score is worth\."
+        "```\nscore  points"
+        "\n-----  ------"
+        "\n 1/6      6   "
+        "\n 2/6      5   "
+        "\n 3/6      4   "
+        "\n 4/6      3   "
+        "\n 5/6      2   "
+        "\n 6/6      1   "
+        "\n X/6     0.5 ```"
+    )
+
+    update.message.reply_text(msg, parse_mode="MarkdownV2")
+
+    return None
+
+
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
@@ -179,6 +209,7 @@ def main():
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("recap", recap))
     dp.add_handler(CommandHandler("weekly", weekly))
+    dp.add_handler(CommandHandler("help", help))
     dp.add_handler(MessageHandler(Filters.text, score_listener))
     dp.add_error_handler(error)
 
