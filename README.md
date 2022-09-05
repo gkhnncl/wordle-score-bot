@@ -48,7 +48,7 @@ Add the bot to your Wordle group chat to log everyone's scores in a local CSV fi
     
     to keep it running in the background.
 
-Messages received containing `Wordle XXX Y/6` will be logged into `scores.csv`. It will be created automatically if not yet existing.
+Messages received starting with `Wordle XXX Y/6` will be logged into `scores.csv`. It will be created automatically if not yet existing.
 
 ## Google Sheets integration (optional)
 

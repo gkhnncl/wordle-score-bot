@@ -173,14 +173,11 @@ def send_weekly_message(context):
 
 
 def help(update, context):
-    """Send the past week's leaderboard.
-
-    Included editions start from yesterday and 6 days prior.
-    """
+    """Send the help message."""
     msg = (
         "*How to play*"
         "\nAdd this bot to your group chat and send your Wordle scores\. Messages "
-        "received containing `Wordle XXX Y/6` will be logged\."
+        "received starting with `Wordle XXX Y/6` will be logged\."
         "\n\n*Commands*"
         "\n`/recap` \- Get the leaderboards of the last two Wordle editions\."
         "\n`/weekly` \- Get the leaderboard of the past week\."
