@@ -2,3 +2,6 @@ pandas==1.4.0
 python-telegram-bot==13.11
 python-dotenv==0.19.2
 tabulate==0.8.9
+$ git clone git@github.com:ajdajd/wordle-score-bot.git
+$ cd wordle-score-bot
+$ pip install -r requirements.txt
